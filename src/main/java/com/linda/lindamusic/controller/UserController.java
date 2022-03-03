@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping
     @Operation(summary = "用户检索")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<UserVo> search(@PageableDefault(sort = {"createdTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
+    Page<UserVo> search(@PageableDefault(sort = {"createdTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
         return userService.search(pageable).map(userMapper::toVo);
     }
 

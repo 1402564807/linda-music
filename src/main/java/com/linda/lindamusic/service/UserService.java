@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 public interface UserService extends UserDetailsService {
+    UserDto create(UserCreateRequest userCreateRequest);
 
     @Override
     User loadUserByUsername(String username);
@@ -22,8 +23,6 @@ public interface UserService extends UserDetailsService {
     void delete(String id);
 
     Page<UserDto> search(Pageable pageable);
-
-    UserDto create(UserCreateRequest userCreateRequest);
 
     String createToken(TokenCreateRequest tokenCreateRequest);
 

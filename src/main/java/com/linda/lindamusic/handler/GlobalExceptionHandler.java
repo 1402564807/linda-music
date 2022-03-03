@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         return errorResponse;
     }
 
-    @ExceptionHandler(value = Exception.class)
+//    @ExceptionHandler(value = Exception.class)
     public ErrorResponse exceptionHandler() {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
