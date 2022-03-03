@@ -3,6 +3,7 @@
         {
             "name": "weixin.mp.app-id",
             "type": "java.lang.String",
+            "defaultValue": "",
             "description": "微信小程序ID."
         },
         {
