@@ -8,7 +8,7 @@ import com.linda.lindamusic.dto.UserCreateRequest;
 import com.linda.lindamusic.dto.UserDto;
 import com.linda.lindamusic.dto.UserUpdateRequest;
 import com.linda.lindamusic.entity.User;
-import com.linda.lindamusic.enums.ExceptionType;
+import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.exception.BizException;
 import com.linda.lindamusic.mapper.UserMapper;
 import com.linda.lindamusic.repository.UserRepository;

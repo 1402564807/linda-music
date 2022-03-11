@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final String CREATE_TOKEN_URL = "/tokens";
+    public static final String SITE_SETTING_URL = "/settings/site";
+    public static final String WECHAT_URL = "/wechat/**";
+    public static final String PLAYLISTS_URL = "/playlists/**";
     public static final String[] SWAGGER_WHITELIST = {
             "/swagger**/**",
             "/v3/**",
@@ -40,6 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(CREATE_TOKEN_URL).permitAll()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
+                .antMatchers(SITE_SETTING_URL).permitAll()
+                .antMatchers(PLAYLISTS_URL).permitAll()
+                .antMatchers(WECHAT_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService))
@@ -47,11 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(entryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/weixin/**");
     }
 
     @Override

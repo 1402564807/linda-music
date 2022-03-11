@@ -1,7 +1,7 @@
 package com.linda.lindamusic.service.Impl;
 
 import com.linda.lindamusic.entity.User;
-import com.linda.lindamusic.enums.ExceptionType;
+import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.exception.BizException;
 import com.linda.lindamusic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

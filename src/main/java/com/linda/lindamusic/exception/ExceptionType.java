@@ -1,4 +1,4 @@
-package com.linda.lindamusic.enums;
+package com.linda.lindamusic.exception;
 
 import lombok.Getter;
 
@@ -13,7 +13,12 @@ public enum ExceptionType {
     USER_NOT_FOUND(40401002, "该用户不存在！"),
     USER_PASSWORD_NOT_MATCH(40001003, "用户名或密码错误"),
     USER_NOT_ENABLED(50001001, "用户未启用"),
-    USER_LOCKED(50001002, "用户被锁定");
+    USER_LOCKED(50001002, "用户被锁定"),
+    MUSIC_NOT_FOUND(40402001, "歌曲不存在"),
+    FILE_NOT_FOUND(40403001, "文件不存在"),
+    FILE_NOT_PERMISSION(40303002, "当前用户无权限修改文件"),
+    PLAYLIST_NOT_FOUND(40404001, "歌单不存在"),
+    ARTIST_NOT_FOUND(40405001, "歌手不存在");
 
     private final Integer code;
 

@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(generator = "KSuid")
     @GenericGenerator(name = "KSuid", strategy = "com.linda.lindamusic.utils.KSuidIdentifierGenerator")

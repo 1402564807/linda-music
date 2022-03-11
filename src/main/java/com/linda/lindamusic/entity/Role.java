@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Setter
 @Entity
 @ToString
-public class Role extends AbstractEntity{
+public class Role extends BaseEntity {
     private String name;
 
     private String title;

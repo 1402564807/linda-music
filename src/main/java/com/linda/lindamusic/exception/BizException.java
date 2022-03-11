@@ -1,6 +1,5 @@
 package com.linda.lindamusic.exception;
 
-import com.linda.lindamusic.enums.ExceptionType;
 import lombok.Getter;
 
 @Getter

@@ -1,7 +1,6 @@
 package com.linda.lindamusic.exception;
 
 import cn.hutool.json.JSONUtil;
-import com.linda.lindamusic.enums.ExceptionType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

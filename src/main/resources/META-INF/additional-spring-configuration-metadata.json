@@ -1,15 +1,15 @@
 {
     "properties": [
         {
-            "name": "weixin.mp.app-id",
+            "name": "wechat.mp.app-id",
             "type": "java.lang.String",
             "defaultValue": "",
-            "description": "微信小程序ID."
+            "description": "微信APP_ID."
         },
         {
-            "name": "weixin.mp.app-secret",
+            "name": "wechat.mp.app-secret",
             "type": "java.lang.String",
-            "description": "Description for weixin.mp.app-secret."
+            "description": "微信app-secret."
         },
         {
             "name": "cos.bucket",

@@ -1,5 +1,5 @@
 INSERT INTO `user` (id, username, nickname, password, created_time, updated_time)
-VALUES ('1', 'admin', '程序猿依力', '$2a$10$t/9Fu1/5zDt/0XUbxoFYP.bzaLNOz5Apr8J6QIFDh9IDsaKSGB7xa',
+VALUES ('1', 'admin', 'Linda', '$2a$10$a2lGlQXQXPZzOX.IJO.0depS3Ct8etVJ5Eit/I34aDOq146j85BHS',
         '2021-07-21 09:27:12.260000',
         '2021-07-21 09:27:12.260000');
 INSERT INTO `role` (id, name, title, created_time, updated_time)
