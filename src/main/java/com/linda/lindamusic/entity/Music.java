@@ -5,11 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
+/**
+ * 音乐
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Entity
 @Getter
 @Setter
@@ -19,6 +23,11 @@ public class Music extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private MusicStatus status;
+
+    @ManyToMany
+    @ToString.Exclude
+    @JoinTable(name = "artist_music", joinColumns = @JoinColumn(name = "music_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "artist_id", referencedColumnName = "id"))
+    private List<Artist> artistList;
 
     private String description;
 

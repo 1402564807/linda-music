@@ -9,19 +9,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * 可追踪基本实体
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Getter
 @Setter
 @ToString
 @MappedSuperclass
-abstract class TraceableBaseEntity extends BaseEntity {
+public abstract class TraceableBaseEntity extends BaseEntity {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_user_id")
-    protected User createdBy;
+    private User createdBy;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by_user_id")
-    protected User updatedBy;
+    private User updatedBy;
 }

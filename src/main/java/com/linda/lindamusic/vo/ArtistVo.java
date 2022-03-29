@@ -6,6 +6,12 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+/**
+ * 艺术家vo
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ArtistVo extends BaseVo {

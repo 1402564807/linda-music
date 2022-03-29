@@ -5,6 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * 用户创建请求
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Data
 public class UserCreateRequest {
 

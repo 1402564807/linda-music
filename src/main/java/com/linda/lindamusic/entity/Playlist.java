@@ -8,6 +8,12 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * 播放列表
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Entity
 @Getter
 @Setter

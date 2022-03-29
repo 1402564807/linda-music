@@ -2,16 +2,24 @@ package com.linda.lindamusic.entity;
 
 import com.linda.lindamusic.enums.ArtistStatus;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * 艺术家
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Entity
-@Setter
 @Getter
+@Setter
 @ToString
+@RequiredArgsConstructor
 public class Artist extends TraceableBaseEntity {
 
     private String name;

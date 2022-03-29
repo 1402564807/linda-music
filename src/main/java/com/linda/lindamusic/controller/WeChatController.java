@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
 
+/**
+ * 微信控制器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @RestController
 @RequestMapping("/wechat")
 public class WeChatController {

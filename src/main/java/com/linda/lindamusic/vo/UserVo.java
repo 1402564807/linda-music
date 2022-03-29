@@ -5,6 +5,12 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 用户vo
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Data
 public class UserVo {
     private String id;

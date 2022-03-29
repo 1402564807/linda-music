@@ -12,6 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+/**
+ * 文件
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Entity
 @Getter
 @Setter

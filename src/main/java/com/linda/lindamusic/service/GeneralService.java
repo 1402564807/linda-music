@@ -6,6 +6,12 @@ import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.mapper.MapperInterface;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * 一般事务人员
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 public interface GeneralService<Entity extends BaseEntity, Dto extends BaseDto> {
     JpaRepository<Entity, String> getRepository();
 

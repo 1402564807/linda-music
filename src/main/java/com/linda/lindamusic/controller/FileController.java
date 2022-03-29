@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+/**
+ * 文件控制器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 @RequestMapping("/files")

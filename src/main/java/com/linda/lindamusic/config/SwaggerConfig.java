@@ -12,6 +12,12 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 
+/**
+ * 昂首阔步
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Configuration
 public class SwaggerConfig {
 

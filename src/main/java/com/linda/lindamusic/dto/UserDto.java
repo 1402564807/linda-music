@@ -6,6 +6,12 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 用户dto
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Data
 public class UserDto {
     private String id;

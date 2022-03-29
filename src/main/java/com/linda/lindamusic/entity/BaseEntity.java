@@ -11,6 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
+/**
+ * 基本实体
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Getter
 @Setter
 @MappedSuperclass

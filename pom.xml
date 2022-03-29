@@ -14,7 +14,7 @@
     <name>linda-music</name>
     <description>linda-music</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.github.ksuid</groupId>
             <artifactId>ksuid</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -87,19 +87,19 @@
         <dependency>
             <groupId>com.qcloud</groupId>
             <artifactId>cos_api</artifactId>
-            <version>5.6.68</version>
+            <version>5.6.70</version>
         </dependency>
 
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.18.3</version>
+            <version>3.19.0</version>
         </dependency>
 
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.7.20</version>
+            <version>5.7.22</version>
         </dependency>
 
         <dependency>
@@ -111,7 +111,7 @@
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
-            <version>4.2.5.B</version>
+            <version>4.2.8.B</version>
         </dependency>
 
 
@@ -127,6 +127,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerArgs>
+                        --enable-preview
+                    </compilerArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>

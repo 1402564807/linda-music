@@ -8,6 +8,12 @@ import lombok.ToString;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 播放列表vo
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Getter
 @Setter
 @ToString

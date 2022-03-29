@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 设定控制器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @RestController
 @RequestMapping("/settings")
 public class SettingController {

@@ -12,6 +12,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 音乐控制器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @RestController
 @RequestMapping("/musics")
 public class MusicController {

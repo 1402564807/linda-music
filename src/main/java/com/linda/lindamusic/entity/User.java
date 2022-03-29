@@ -14,6 +14,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 使用者
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Getter
 @Setter
 @Entity

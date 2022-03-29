@@ -8,13 +8,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 
+/**
+ * 文件映射装饰器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 public abstract class FileMapperDecorator implements FileMapper {
 
-    @Autowired
     @Qualifier("delegate")
     private FileMapper delegate;
 
-    @Autowired
     private Map<String, StorageService> storageServices;
 
     @Override
@@ -25,7 +29,21 @@ public abstract class FileMapperDecorator implements FileMapper {
             return null;
         }
 
+        if (fileDto.getStorage() == null) {
+            return null;
+        }
+
         fileDto.setUri(storageServices.get(fileDto.getStorage().name()).getFileUri(fileDto.getKey()));
         return fileDto;
+    }
+
+    @Autowired
+    public void setDelegate(FileMapper delegate) {
+        this.delegate = delegate;
+    }
+
+    @Autowired
+    public void setStorageServices(Map<String, StorageService> storageServices) {
+        this.storageServices = storageServices;
     }
 }

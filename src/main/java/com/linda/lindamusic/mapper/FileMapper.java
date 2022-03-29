@@ -7,6 +7,12 @@ import com.linda.lindamusic.vo.FileVo;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
+/**
+ * 文件映射器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Mapper(componentModel = "spring")
 @DecoratedWith(FileMapperDecorator.class)
 public interface FileMapper {

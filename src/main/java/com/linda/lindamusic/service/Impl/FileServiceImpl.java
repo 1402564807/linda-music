@@ -4,10 +4,10 @@ import com.linda.lindamusic.dto.FileDto;
 import com.linda.lindamusic.dto.FileUploadDto;
 import com.linda.lindamusic.dto.FileUploadRequest;
 import com.linda.lindamusic.entity.File;
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.enums.FileStatus;
 import com.linda.lindamusic.enums.Storage;
 import com.linda.lindamusic.exception.BizException;
+import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.mapper.FileMapper;
 import com.linda.lindamusic.repository.FileRepository;
 import com.linda.lindamusic.service.FileService;
@@ -20,8 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
+/**
+ * 文件服务impl
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Service
 public class FileServiceImpl extends BaseService implements FileService {
 
@@ -35,14 +40,14 @@ public class FileServiceImpl extends BaseService implements FileService {
     @Transactional
     public FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException {
         // 创建File实体
-        File file = mapper.createEntity(fileUploadRequest);
+        var file = mapper.createEntity(fileUploadRequest);
         file.setType(FileTypeTransformer.getFileTypeFromExt(fileUploadRequest.getExt()));
         file.setStorage(getDefaultStorage());
         file.setCreatedBy(getCurrentUserEntity());
         file.setUpdatedBy(getCurrentUserEntity());
-        File savedFile = repository.save(file);
+        var savedFile = repository.save(file);
         // 通过接口获取STS令牌
-        FileUploadDto fileUploadDto = storageServices.get(getDefaultStorage().name()).initFileUpload();
+        var fileUploadDto = storageServices.get(getDefaultStorage().name()).initFileUpload();
 
         fileUploadDto.setKey(savedFile.getKey());
         fileUploadDto.setFileId(savedFile.getId());
@@ -51,7 +56,7 @@ public class FileServiceImpl extends BaseService implements FileService {
 
     @Override
     public FileDto finishUpload(String id) {
-        File file = getFileEntity(id);
+        var file = getFileEntity(id);
         // Todo: 是否是SUPER_ADMIN
         if (!Objects.equals(file.getCreatedBy().getId(), getCurrentUserEntity().getId())) {
             throw new BizException(ExceptionType.FILE_NOT_PERMISSION);
@@ -70,8 +75,8 @@ public class FileServiceImpl extends BaseService implements FileService {
 
     @Override
     public File getFileEntity(String id) {
-        Optional<File> fileOptional = repository.findById(id);
-        if (!fileOptional.isPresent()) {
+        var fileOptional = repository.findById(id);
+        if (fileOptional.isEmpty()) {
             throw new BizException(ExceptionType.FILE_NOT_FOUND);
         }
         return fileOptional.get();

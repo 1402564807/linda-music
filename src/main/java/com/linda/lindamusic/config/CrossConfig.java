@@ -6,11 +6,22 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * 交叉配置
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Configuration
 public class CrossConfig {
+    /**
+     * 减少缩进
+     *
+     * @return {@link CorsFilter}
+     */
     @Bean
     public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
+        var config = new CorsConfiguration();
         //允许所有域名进行跨域调用
         config.addAllowedOriginPattern("*");
         //允许跨越发送cookie
@@ -20,7 +31,7 @@ public class CrossConfig {
         //允许所有请求方法跨域调用
         config.addAllowedMethod("*");
         config.addExposedHeader("*");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

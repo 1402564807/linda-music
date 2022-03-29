@@ -16,11 +16,16 @@ import com.linda.lindamusic.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * 音乐服务impl
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Service
 public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implements MusicService {
 
@@ -29,25 +34,20 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
     private MusicMapper mapper;
 
     @Override
-    public MusicDto create(MusicDto musicDto) {
-        return super.create(musicDto);
-    }
-
-    @Override
     public Page<MusicDto> search(MusicSearchFilter musicSearchRequest) {
         if (musicSearchRequest == null) {
             musicSearchRequest = new MusicSearchFilter();
         }
-        MusicSpecification specs = new MusicSpecification();
+        var specs = new MusicSpecification();
         specs.add(new SearchCriteria("name", musicSearchRequest.getName(), SearchOperation.MATCH));
-        Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
-        Pageable pageable = PageRequest.of(musicSearchRequest.getPage() - 1, musicSearchRequest.getSize(), sort);
+        var sort = Sort.by(Sort.Direction.DESC, "createdTime");
+        var pageable = PageRequest.of(musicSearchRequest.getPage() - 1, musicSearchRequest.getSize(), sort);
         return repository.findAll(specs, pageable).map(mapper::toDto);
     }
 
     @Override
     public void publish(String id) {
-        Music music = getEntity(id);
+        var music = getEntity(id);
         music.setStatus(MusicStatus.PUBLISHED);
         repository.save(music);
     }
@@ -55,7 +55,7 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
 
     @Override
     public void close(String id) {
-        Music music = getEntity(id);
+        var music = getEntity(id);
         music.setStatus(MusicStatus.CLOSED);
         repository.save(music);
     }

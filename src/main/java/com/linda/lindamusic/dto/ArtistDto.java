@@ -6,9 +6,15 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+/**
+ * 艺术家dto
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ArtistDto extends BaseDto {
+public class ArtistDto extends TraceableBaseDto {
     private String name;
 
     private String remark;

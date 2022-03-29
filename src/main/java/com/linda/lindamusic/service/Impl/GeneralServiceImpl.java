@@ -6,13 +6,18 @@ import com.linda.lindamusic.exception.BizException;
 import com.linda.lindamusic.service.GeneralService;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-public abstract class GeneralServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> implements GeneralService<Entity, Dto> {
+/**
+ * 一般事务人员
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
+public abstract class GeneralServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends BaseService implements GeneralService<Entity, Dto> {
 
     @Override
     public Dto create(Dto dto) {
-        return getMapper().toDto(getRepository().save(getMapper().toEntity(dto)));
+        var entity = getMapper().toEntity(dto);
+        return getMapper().toDto(getRepository().save(entity));
     }
 
     @Override
@@ -21,8 +26,8 @@ public abstract class GeneralServiceImpl<Entity extends BaseEntity, Dto extends 
     }
 
     protected Entity getEntity(String id) {
-        Optional<Entity> optionalEntity = getRepository().findById(id);
-        if (!optionalEntity.isPresent()) {
+        var optionalEntity = getRepository().findById(id);
+        if (optionalEntity.isEmpty()) {
             throw new BizException(getNotFoundExceptionType());
         }
         return optionalEntity.get();
@@ -33,14 +38,14 @@ public abstract class GeneralServiceImpl<Entity extends BaseEntity, Dto extends 
     @Transactional
     public Dto update(String id, Dto dto) {
         // Todo: dto 可能无法控制更新字段
-        Entity existedEntity = getEntity(id);
-        Entity updatedEntity = getRepository().save(getMapper().updateEntity(existedEntity, dto));
+        var existedEntity = getEntity(id);
+        var updatedEntity = getRepository().save(getMapper().updateEntity(existedEntity, dto));
         return getMapper().toDto(updatedEntity);
     }
 
     @Override
     public void delete(String id) {
-        Entity existedEntity = getEntity(id);
+        var existedEntity = getEntity(id);
         getRepository().delete(existedEntity);
     }
 }

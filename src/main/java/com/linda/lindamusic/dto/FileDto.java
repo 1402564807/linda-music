@@ -7,6 +7,12 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 文件dto
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Data
 public class FileDto {
     private String id;

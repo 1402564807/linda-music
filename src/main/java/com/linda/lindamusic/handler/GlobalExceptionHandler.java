@@ -14,14 +14,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 全局异常处理程序
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * 业务异常处理程序
+     *
+     * @param e E
+     * @return {@link ErrorResponse}
+     */
     @ExceptionHandler(value = BizException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse bizExceptionHandler(BizException e) {
-        ErrorResponse errorResponse = new ErrorResponse();
+        var errorResponse = new ErrorResponse();
         errorResponse.setCode(e.getCode());
         errorResponse.setMessage(e.getMessage());
         errorResponse.setTrace(e.getStackTrace());
@@ -29,10 +41,16 @@ public class GlobalExceptionHandler {
         return errorResponse;
     }
 
+    /**
+     * 异常处理程序
+     *
+     * @param e E
+     * @return {@link ErrorResponse}
+     */
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse exceptionHandler(Exception e) {
-        ErrorResponse errorResponse = new ErrorResponse();
+        var errorResponse = new ErrorResponse();
         errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
         errorResponse.setMessage(ExceptionType.INNER_ERROR.getMessage());
         e.printStackTrace();
@@ -40,10 +58,16 @@ public class GlobalExceptionHandler {
         return errorResponse;
     }
 
+    /**
+     * 拒绝访问处理程序
+     *
+     * @param e E
+     * @return {@link ErrorResponse}
+     */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(value = AccessDeniedException.class)
     public ErrorResponse accessDeniedHandler(Exception e) {
-        ErrorResponse errorResponse = new ErrorResponse();
+        var errorResponse = new ErrorResponse();
         errorResponse.setCode(ExceptionType.FORBIDDEN.getCode());
         errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
         e.printStackTrace();
@@ -51,10 +75,16 @@ public class GlobalExceptionHandler {
         return errorResponse;
     }
 
+    /**
+     * 业务异常处理程序
+     *
+     * @param e E
+     * @return {@link List}<{@link ErrorResponse}>
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public List<ErrorResponse> bizExceptionHandler(MethodArgumentNotValidException e) {
-        List<ErrorResponse> errorResponses = new ArrayList<>();
+        var errorResponses = new ArrayList<ErrorResponse>();
         e.printStackTrace();
         e.getBindingResult().getAllErrors().forEach((error) -> {
             ErrorResponse errorResponse = new ErrorResponse();

@@ -9,6 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * rest身份验证入口点
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -18,7 +24,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        ErrorResponse errorResponse = new ErrorResponse();
+        var errorResponse = new ErrorResponse();
         errorResponse.setCode(ExceptionType.UNAUTHORIZED.getCode());
         errorResponse.setMessage(ExceptionType.UNAUTHORIZED.getMessage());
         response.getWriter().println(JSONUtil.parse(errorResponse));

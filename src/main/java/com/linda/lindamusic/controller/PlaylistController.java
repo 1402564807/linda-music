@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 播放列表控制器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @RestController
 @RequestMapping("/playlists")
 public class PlaylistController {

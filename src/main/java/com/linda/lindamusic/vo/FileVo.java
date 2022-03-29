@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 文件vo
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Getter
 @Setter
 @ToString

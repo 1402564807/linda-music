@@ -2,8 +2,8 @@ package com.linda.lindamusic.service.Impl;
 
 
 import com.linda.lindamusic.dto.FileUploadDto;
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.exception.BizException;
+import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.service.StorageService;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -13,7 +13,6 @@ import com.qcloud.cos.http.HttpMethodName;
 import com.qcloud.cos.http.HttpProtocol;
 import com.qcloud.cos.region.Region;
 import com.tencent.cloud.CosStsClient;
-import com.tencent.cloud.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * cos存储服务impl
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Service("COS")
 public class CosStorageServiceImpl implements StorageService {
 
@@ -41,8 +46,8 @@ public class CosStorageServiceImpl implements StorageService {
     @Override
     public FileUploadDto initFileUpload() {
         try {
-            Response response = CosStsClient.getCredential(getCosStsConfig());
-            FileUploadDto fileUploadDto = new FileUploadDto();
+            var response = CosStsClient.getCredential(getCosStsConfig());
+            var fileUploadDto = new FileUploadDto();
             fileUploadDto.setSecretId(response.credentials.tmpSecretId);
             fileUploadDto.setSecretKey(response.credentials.tmpSecretKey);
             fileUploadDto.setSessionToken(response.credentials.sessionToken);

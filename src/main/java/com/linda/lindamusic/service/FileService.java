@@ -8,6 +8,12 @@ import com.linda.lindamusic.enums.Storage;
 
 import java.io.IOException;
 
+/**
+ * 文件服务
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 public interface FileService {
     FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
 

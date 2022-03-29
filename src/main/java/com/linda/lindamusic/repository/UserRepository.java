@@ -8,6 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
+/**
+ * 用户存储库
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 public interface UserRepository extends JpaRepository<User, String> {
     User getByUsername(String username);
 

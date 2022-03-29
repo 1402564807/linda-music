@@ -10,6 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 
+/**
+ * 用户服务
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 public interface UserService extends UserDetailsService {
     UserDto create(UserCreateRequest userCreateRequest);
 

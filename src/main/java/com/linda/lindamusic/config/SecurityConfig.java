@@ -12,6 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * 安全配置
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
@@ -36,6 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private RestAuthenticationEntryPoint entryPoint;
 
+    /**
+     * 配置
+     *
+     * @param http http
+     * @throws Exception 例外
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()

@@ -2,6 +2,12 @@ package com.linda.lindamusic.utils;
 
 import com.linda.lindamusic.enums.FileType;
 
+/**
+ * 文件类型转换器
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 public class FileTypeTransformer {
 
     public static FileType getFileTypeFromExt(String ext) {
@@ -21,11 +27,11 @@ public class FileTypeTransformer {
     }
 
     private static Boolean isVideo(String ext) {
-        String[] videoExt = {"vob", "mp4", "avi",
+        var videoExt = new String[]{"vob", "mp4", "avi",
                 "flv", "f4v", "wmv", "mov", "rmvb",
                 "mkv", "mpg", "m4v", "webm", "rm",
                 "mpeg", "asf", "ts", "mts"};
-        for (String perExt : videoExt) {
+        for (var perExt : videoExt) {
             if (perExt.equals(ext))
                 return Boolean.TRUE;
         }
@@ -33,8 +39,8 @@ public class FileTypeTransformer {
     }
 
     private static Boolean isAudio(String ext) {
-        String[] videoExt = {"mp3", "wav"};
-        for (String perExt : videoExt) {
+        var videoExt = new String[]{"mp3", "wav"};
+        for (var perExt : videoExt) {
             if (perExt.equals(ext))
                 return Boolean.TRUE;
         }
@@ -43,8 +49,8 @@ public class FileTypeTransformer {
 
 
     private static Boolean isImage(String ext) {
-        String[] videoExt = {"png", "jpg", "jpeg"};
-        for (String perExt : videoExt) {
+        var videoExt = new String[]{"png", "jpg", "jpeg"};
+        for (var perExt : videoExt) {
             if (perExt.equals(ext))
                 return Boolean.TRUE;
         }

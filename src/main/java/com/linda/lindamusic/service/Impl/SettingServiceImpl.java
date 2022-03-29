@@ -7,6 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+/**
+ * 设置服务impl
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Service
 public class SettingServiceImpl implements SettingService {
 
@@ -23,7 +29,7 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     public SiteSettingDto getSiteSetting() {
-        SiteSettingDto siteSettingDto = new SiteSettingDto();
+        var siteSettingDto = new SiteSettingDto();
         siteSettingDto.setBucket(bucket);
         siteSettingDto.setRegion(region);
         siteSettingDto.setStorage(fileService.getDefaultStorage());

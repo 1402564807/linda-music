@@ -2,6 +2,12 @@ package com.linda.lindamusic.exception;
 
 import lombok.Getter;
 
+/**
+ * 异常类型
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Getter
 public enum ExceptionType {
     INNER_ERROR(500, "系统内部错误！"),

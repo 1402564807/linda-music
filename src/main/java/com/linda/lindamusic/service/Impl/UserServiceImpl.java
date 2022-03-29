@@ -8,8 +8,8 @@ import com.linda.lindamusic.dto.UserCreateRequest;
 import com.linda.lindamusic.dto.UserDto;
 import com.linda.lindamusic.dto.UserUpdateRequest;
 import com.linda.lindamusic.entity.User;
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.exception.BizException;
+import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.mapper.UserMapper;
 import com.linda.lindamusic.repository.UserRepository;
 import com.linda.lindamusic.service.UserService;
@@ -20,8 +20,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 
+/**
+ * 用户服务impl
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Service
 public class UserServiceImpl extends BaseService implements UserService {
 
@@ -35,14 +40,14 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public UserDto create(UserCreateRequest userCreateRequest) {
         checkUsername(userCreateRequest.getUsername());
-        User user = mapper.createEntity(userCreateRequest);
+        var user = mapper.createEntity(userCreateRequest);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return mapper.toDto(repository.save(user));
     }
 
     @Override
     public String createToken(TokenCreateRequest tokenCreateRequest) {
-        User user = loadUserByUsername(tokenCreateRequest.getUsername());
+        var user = loadUserByUsername(tokenCreateRequest.getUsername());
         if (!passwordEncoder.matches(tokenCreateRequest.getPassword(), user.getPassword())) {
             throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
         }
@@ -64,7 +69,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     private void checkUsername(String username) {
-        Optional<User> user = repository.findByUsername(username);
+        var user = repository.findByUsername(username);
         if (user.isPresent()) {
             throw new BizException(ExceptionType.USER_NAME_DUPLICATE);
         }
@@ -72,8 +77,8 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public User loadUserByUsername(String username) {
-        Optional<User> user = repository.findByUsername(username);
-        if (!user.isPresent()) {
+        var user = repository.findByUsername(username);
+        if (user.isEmpty()) {
             throw new BizException(ExceptionType.USER_NOT_FOUND);
         }
         return user.get();
@@ -82,8 +87,8 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public UserDto get(String id) {
         // Todo: 重构
-        Optional<User> user = repository.findById(id);
-        if (!user.isPresent()) {
+        var user = repository.findById(id);
+        if (user.isEmpty()) {
             throw new BizException(ExceptionType.USER_NOT_FOUND);
         }
         return mapper.toDto(user.get());
@@ -92,8 +97,8 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
         // Todo: 重构
-        Optional<User> user = repository.findById(id);
-        if (!user.isPresent()) {
+        var user = repository.findById(id);
+        if (user.isEmpty()) {
             throw new BizException(ExceptionType.USER_NOT_FOUND);
         }
         return mapper.toDto(repository.save(mapper.updateEntity(user.get(), userUpdateRequest)));
@@ -103,8 +108,8 @@ public class UserServiceImpl extends BaseService implements UserService {
     public void delete(String id) {
 
         // Todo: 重构
-        Optional<User> user = repository.findById(id);
-        if (!user.isPresent()) {
+        var user = repository.findById(id);
+        if (user.isEmpty()) {
             throw new BizException(ExceptionType.USER_NOT_FOUND);
         }
         repository.delete(user.get());

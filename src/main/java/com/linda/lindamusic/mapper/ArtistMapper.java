@@ -7,16 +7,18 @@ import com.linda.lindamusic.dto.ArtistUpdateRequest;
 import com.linda.lindamusic.entity.Artist;
 import com.linda.lindamusic.vo.ArtistVo;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 
+/**
+ * 艺术家绘图员
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Mapper(componentModel = "spring", uses = {FileMapper.class, MusicMapper.class})
-public interface ArtistMapper {
+public interface ArtistMapper extends MapperInterface<Artist, ArtistDto> {
+    ArtistDto toDto(ArtistCreateRequest artistCreateRequest);
 
-    Artist createEntity(ArtistCreateRequest artistCreateRequest);
-
-    Artist updateEntity(@MappingTarget Artist artist, ArtistUpdateRequest artistUpdateRequest);
-
-    ArtistDto toDto(Artist artist);
+    ArtistDto toDto(ArtistUpdateRequest artistUpdateRequest);
 
     ArtistVo toVo(ArtistDto artistDto);
 }

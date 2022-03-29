@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * 网络配置
+ *
+ * @author 林思涵
+ * @date 2022/03/29
+ */
 @Configuration
 public class WebConfig {
 
