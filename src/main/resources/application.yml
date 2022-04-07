@@ -19,8 +19,6 @@ spring:
     open-in-view: false
   flyway:
     enabled: true
-    locations:
-      - classpath:db/migration
 
 #  swagger-ui 配置信息
 springdoc:
