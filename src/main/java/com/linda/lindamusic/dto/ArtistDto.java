@@ -24,4 +24,8 @@ public class ArtistDto extends TraceableBaseDto {
     private List<MusicDto> musicDtoList;
 
     private ArtistStatus status;
+
+    private Boolean recommended;
+
+    private Integer recommendFactor;
 }

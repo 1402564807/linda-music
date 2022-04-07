@@ -18,8 +18,6 @@ import java.util.List;
 @Setter
 @ToString
 public class PlaylistVo extends BaseVo {
-    private String id;
-
     private String name;
 
     private String description;

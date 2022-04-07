@@ -1,15 +1,12 @@
 package com.linda.lindamusic.service.Impl;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.linda.lindamusic.config.SecurityConfig;
 import com.linda.lindamusic.dto.TokenCreateRequest;
 import com.linda.lindamusic.dto.UserCreateRequest;
 import com.linda.lindamusic.dto.UserDto;
 import com.linda.lindamusic.dto.UserUpdateRequest;
 import com.linda.lindamusic.entity.User;
 import com.linda.lindamusic.exception.BizException;
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.mapper.UserMapper;
 import com.linda.lindamusic.repository.UserRepository;
 import com.linda.lindamusic.service.UserService;
@@ -20,6 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static com.linda.lindamusic.config.SecurityConfig.EXPIRATION_TIME;
+import static com.linda.lindamusic.config.SecurityConfig.SECRET;
+import static com.linda.lindamusic.exception.ExceptionType.*;
+import static java.lang.System.currentTimeMillis;
 
 /**
  * 用户服务impl
@@ -39,28 +42,63 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserDto create(UserCreateRequest userCreateRequest) {
-        checkUsername(userCreateRequest.getUsername());
+        checkUserName(userCreateRequest.getUsername());
         var user = mapper.createEntity(userCreateRequest);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return mapper.toDto(repository.save(user));
     }
 
     @Override
+    public UserDto get(String id) {
+        return mapper.toDto(getById(id));
+    }
+
+    @Override
+    public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
+        return mapper.toDto(repository.save(mapper.updateEntity(getById(id), userUpdateRequest)));
+    }
+
+    private User getById(String id) {
+        var user = repository.findById(id);
+        if (user.isEmpty()) {
+            throw new BizException(USER_NOT_FOUND);
+        }
+        return user.get();
+    }
+
+    @Override
+    public void delete(String id) {
+        repository.delete(getById(id));
+    }
+
+    @Override
+    public Page<UserDto> search(Pageable pageable) {
+        return repository.findAll(pageable).map(mapper::toDto);
+    }
+
+    @Override
+    public User loadUserByUsername(String username) {
+        return super.loadUserByUsername(username);
+    }
+
+    @Override
     public String createToken(TokenCreateRequest tokenCreateRequest) {
         var user = loadUserByUsername(tokenCreateRequest.getUsername());
         if (!passwordEncoder.matches(tokenCreateRequest.getPassword(), user.getPassword())) {
-            throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
+            throw new BizException(USER_PASSWORD_NOT_MATCH);
         }
         if (!user.isEnabled()) {
-            throw new BizException(ExceptionType.USER_NOT_ENABLED);
+            throw new BizException(USER_NOT_ENABLED);
         }
+
         if (!user.isAccountNonLocked()) {
-            throw new BizException(ExceptionType.USER_LOCKED);
+            throw new BizException(USER_LOCKED);
         }
+
         return JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()));
+                .withExpiresAt(new Date(currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
     }
 
     @Override
@@ -68,56 +106,12 @@ public class UserServiceImpl extends BaseService implements UserService {
         return mapper.toDto(super.getCurrentUserEntity());
     }
 
-    private void checkUsername(String username) {
+
+    private void checkUserName(String username) {
         var user = repository.findByUsername(username);
         if (user.isPresent()) {
-            throw new BizException(ExceptionType.USER_NAME_DUPLICATE);
+            throw new BizException(USER_NAME_DUPLICATE);
         }
-    }
-
-    @Override
-    public User loadUserByUsername(String username) {
-        var user = repository.findByUsername(username);
-        if (user.isEmpty()) {
-            throw new BizException(ExceptionType.USER_NOT_FOUND);
-        }
-        return user.get();
-    }
-
-    @Override
-    public UserDto get(String id) {
-        // Todo: 重构
-        var user = repository.findById(id);
-        if (user.isEmpty()) {
-            throw new BizException(ExceptionType.USER_NOT_FOUND);
-        }
-        return mapper.toDto(user.get());
-    }
-
-    @Override
-    public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
-        // Todo: 重构
-        var user = repository.findById(id);
-        if (user.isEmpty()) {
-            throw new BizException(ExceptionType.USER_NOT_FOUND);
-        }
-        return mapper.toDto(repository.save(mapper.updateEntity(user.get(), userUpdateRequest)));
-    }
-
-    @Override
-    public void delete(String id) {
-
-        // Todo: 重构
-        var user = repository.findById(id);
-        if (user.isEmpty()) {
-            throw new BizException(ExceptionType.USER_NOT_FOUND);
-        }
-        repository.delete(user.get());
-    }
-
-    @Override
-    public Page<UserDto> search(Pageable pageable) {
-        return repository.findAll(pageable).map(mapper::toDto);
     }
 
     @Autowired

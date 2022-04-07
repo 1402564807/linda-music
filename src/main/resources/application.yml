@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+# spring 基本配置
+spring:
+  profiles:
+    active:
+      - dev
+  application:
+    name: ${APP_NAME}
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${DATABASE_NAME}?characterEncoding=UTF8&userSSL=false
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
+
+#  swagger-ui 配置信息
+springdoc:
+  swagger-ui: true
+    path: /swagger-ui.html
+  packagesToScan: com.linda.lindamusic.controller
+
+# 微信小程序配置
+wechat:
+  mp:
+    app-id: ${MP_APP_ID}
+    app-secret: ${MP_APP_SECRET}
+
+cos:
+  bucket: ${COS_BUCKET}
+  region: ${COS_REGION}
+  secret-id: ${COS_SECRET_ID}
+  secret-key: ${COS_SECRET_KEY}

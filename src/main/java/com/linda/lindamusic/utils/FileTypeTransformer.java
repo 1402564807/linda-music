@@ -2,6 +2,9 @@ package com.linda.lindamusic.utils;
 
 import com.linda.lindamusic.enums.FileType;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 /**
  * 文件类型转换器
  *
@@ -33,18 +36,18 @@ public class FileTypeTransformer {
                 "mpeg", "asf", "ts", "mts"};
         for (var perExt : videoExt) {
             if (perExt.equals(ext))
-                return Boolean.TRUE;
+                return TRUE;
         }
-        return Boolean.FALSE;
+        return FALSE;
     }
 
     private static Boolean isAudio(String ext) {
         var videoExt = new String[]{"mp3", "wav"};
         for (var perExt : videoExt) {
             if (perExt.equals(ext))
-                return Boolean.TRUE;
+                return TRUE;
         }
-        return Boolean.FALSE;
+        return FALSE;
     }
 
 
@@ -52,9 +55,9 @@ public class FileTypeTransformer {
         var videoExt = new String[]{"png", "jpg", "jpeg"};
         for (var perExt : videoExt) {
             if (perExt.equals(ext))
-                return Boolean.TRUE;
+                return TRUE;
         }
-        return Boolean.FALSE;
+        return FALSE;
     }
 
 

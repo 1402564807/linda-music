@@ -4,15 +4,12 @@ import com.linda.lindamusic.dto.FileDto;
 import com.linda.lindamusic.dto.FileUploadDto;
 import com.linda.lindamusic.dto.FileUploadRequest;
 import com.linda.lindamusic.entity.File;
-import com.linda.lindamusic.enums.FileStatus;
 import com.linda.lindamusic.enums.Storage;
 import com.linda.lindamusic.exception.BizException;
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.mapper.FileMapper;
 import com.linda.lindamusic.repository.FileRepository;
 import com.linda.lindamusic.service.FileService;
 import com.linda.lindamusic.service.StorageService;
-import com.linda.lindamusic.utils.FileTypeTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.linda.lindamusic.enums.FileStatus.UPLOADED;
+import static com.linda.lindamusic.enums.Storage.COS;
+import static com.linda.lindamusic.exception.ExceptionType.FILE_NOT_FOUND;
+import static com.linda.lindamusic.exception.ExceptionType.FILE_NOT_PERMISSION;
+import static com.linda.lindamusic.utils.FileTypeTransformer.getFileTypeFromExt;
 
 /**
  * 文件服务impl
@@ -41,7 +44,7 @@ public class FileServiceImpl extends BaseService implements FileService {
     public FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException {
         // 创建File实体
         var file = mapper.createEntity(fileUploadRequest);
-        file.setType(FileTypeTransformer.getFileTypeFromExt(fileUploadRequest.getExt()));
+        file.setType(getFileTypeFromExt(fileUploadRequest.getExt()));
         file.setStorage(getDefaultStorage());
         file.setCreatedBy(getCurrentUserEntity());
         file.setUpdatedBy(getCurrentUserEntity());
@@ -59,25 +62,25 @@ public class FileServiceImpl extends BaseService implements FileService {
         var file = getFileEntity(id);
         // Todo: 是否是SUPER_ADMIN
         if (!Objects.equals(file.getCreatedBy().getId(), getCurrentUserEntity().getId())) {
-            throw new BizException(ExceptionType.FILE_NOT_PERMISSION);
+            throw new BizException(FILE_NOT_PERMISSION);
         }
 
         // Todo: 验证远程文件是否存在
 
-        file.setStatus(FileStatus.UPLOADED);
+        file.setStatus(UPLOADED);
         return mapper.toDto(repository.save(file));
     }
 
     // Todo: 后台设置当前Storage
     public Storage getDefaultStorage() {
-        return Storage.COS;
+        return COS;
     }
 
     @Override
     public File getFileEntity(String id) {
         var fileOptional = repository.findById(id);
         if (fileOptional.isEmpty()) {
-            throw new BizException(ExceptionType.FILE_NOT_FOUND);
+            throw new BizException(FILE_NOT_FOUND);
         }
         return fileOptional.get();
     }

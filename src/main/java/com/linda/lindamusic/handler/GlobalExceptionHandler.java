@@ -1,6 +1,5 @@
 package com.linda.lindamusic.handler;
 
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.exception.BizException;
 import com.linda.lindamusic.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.linda.lindamusic.exception.ExceptionType.*;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 /**
  * 全局异常处理程序
@@ -31,7 +33,7 @@ public class GlobalExceptionHandler {
      * @return {@link ErrorResponse}
      */
     @ExceptionHandler(value = BizException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse bizExceptionHandler(BizException e) {
         var errorResponse = new ErrorResponse();
         errorResponse.setCode(e.getCode());
@@ -48,11 +50,11 @@ public class GlobalExceptionHandler {
      * @return {@link ErrorResponse}
      */
     @ExceptionHandler(value = Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse exceptionHandler(Exception e) {
         var errorResponse = new ErrorResponse();
-        errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
-        errorResponse.setMessage(ExceptionType.INNER_ERROR.getMessage());
+        errorResponse.setCode(INNER_ERROR.getCode());
+        errorResponse.setMessage(INNER_ERROR.getMessage());
         e.printStackTrace();
         log.error(e.getMessage());
         return errorResponse;
@@ -68,8 +70,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AccessDeniedException.class)
     public ErrorResponse accessDeniedHandler(Exception e) {
         var errorResponse = new ErrorResponse();
-        errorResponse.setCode(ExceptionType.FORBIDDEN.getCode());
-        errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
+        errorResponse.setCode(FORBIDDEN.getCode());
+        errorResponse.setMessage(FORBIDDEN.getMessage());
         e.printStackTrace();
         log.error(e.getMessage());
         return errorResponse;
@@ -88,7 +90,7 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         e.getBindingResult().getAllErrors().forEach((error) -> {
             ErrorResponse errorResponse = new ErrorResponse();
-            errorResponse.setCode(ExceptionType.BAD_REQUEST.getCode());
+            errorResponse.setCode(BAD_REQUEST.getCode());
             errorResponse.setMessage(error.getDefaultMessage());
             errorResponses.add(errorResponse);
             log.error(e.getMessage());

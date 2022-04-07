@@ -3,24 +3,22 @@ package com.linda.lindamusic.service.Impl;
 
 import com.linda.lindamusic.dto.FileUploadDto;
 import com.linda.lindamusic.exception.BizException;
-import com.linda.lindamusic.exception.ExceptionType;
 import com.linda.lindamusic.service.StorageService;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
-import com.qcloud.cos.auth.COSCredentials;
-import com.qcloud.cos.http.HttpMethodName;
 import com.qcloud.cos.http.HttpProtocol;
 import com.qcloud.cos.region.Region;
-import com.tencent.cloud.CosStsClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
+
+import static com.linda.lindamusic.exception.ExceptionType.INNER_ERROR;
+import static com.qcloud.cos.http.HttpMethodName.GET;
+import static com.tencent.cloud.CosStsClient.getCredential;
 
 /**
  * cos存储服务impl
@@ -46,7 +44,7 @@ public class CosStorageServiceImpl implements StorageService {
     @Override
     public FileUploadDto initFileUpload() {
         try {
-            var response = CosStsClient.getCredential(getCosStsConfig());
+            var response = getCredential(getCosStsConfig());
             var fileUploadDto = new FileUploadDto();
             fileUploadDto.setSecretId(response.credentials.tmpSecretId);
             fileUploadDto.setSecretKey(response.credentials.tmpSecretKey);
@@ -56,24 +54,23 @@ public class CosStorageServiceImpl implements StorageService {
             return fileUploadDto;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new BizException(ExceptionType.INNER_ERROR);
+            throw new BizException(INNER_ERROR);
         }
     }
 
     @Override
     public String getFileUri(String fileKey) {
-        COSClient cosClient = createCOSClient();
-        Date expirationDate = new Date(System.currentTimeMillis() + 30 * 60 * 1000);
-        Map<String, String> params = new HashMap<>();
-        Map<String, String> headers = new HashMap<>();
-        HttpMethodName method = HttpMethodName.GET;
-        URL url = cosClient.generatePresignedUrl(bucket, fileKey, expirationDate, method, headers, params);
+        var cosClient = createCOSClient();
+        var expirationDate = new Date(System.currentTimeMillis() + 30 * 60 * 1000);
+        var params = new HashMap<String, String>();
+        var headers = new HashMap<String, String>();
+        var url = cosClient.generatePresignedUrl(bucket, fileKey, expirationDate, GET, headers, params);
         cosClient.shutdown();
         return url.toString();
     }
 
     private TreeMap<String, Object> getCosStsConfig() {
-        TreeMap<String, Object> config = new TreeMap<>();
+        var config = new TreeMap<String, Object>();
         config.put("secretId", secretId);
         config.put("secretKey", secretKey);
 
@@ -105,10 +102,10 @@ public class CosStorageServiceImpl implements StorageService {
         // 这里需要已经获取到临时密钥的结果。
         // 临时密钥的生成参考 https://cloud.tencent.com/document/product/436/14048#cos-sts-sdk
 
-        COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
+        var cred = new BasicCOSCredentials(secretId, secretKey);
 
         // ClientConfig 中包含了后续请求 COS 的客户端设置：
-        ClientConfig clientConfig = new ClientConfig();
+        var clientConfig = new ClientConfig();
 
         // 设置 bucket 的地域
         // COS_REGION 请参照 https://cloud.tencent.com/document/product/436/6224

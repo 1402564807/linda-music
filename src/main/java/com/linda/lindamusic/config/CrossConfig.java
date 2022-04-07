@@ -14,6 +14,10 @@ import org.springframework.web.filter.CorsFilter;
  */
 @Configuration
 public class CrossConfig {
+
+    public static final String ORIGIN_PATTERN = "*";
+    public static final String PATTERN = "/**";
+
     /**
      * 减少缩进
      *
@@ -23,16 +27,16 @@ public class CrossConfig {
     public CorsFilter corsFilter() {
         var config = new CorsConfiguration();
         //允许所有域名进行跨域调用
-        config.addAllowedOriginPattern("*");
+        config.addAllowedOriginPattern(ORIGIN_PATTERN);
         //允许跨越发送cookie
         config.setAllowCredentials(true);
         //放行全部原始头信息
-        config.addAllowedHeader("*");
+        config.addAllowedHeader(ORIGIN_PATTERN);
         //允许所有请求方法跨域调用
-        config.addAllowedMethod("*");
-        config.addExposedHeader("*");
+        config.addAllowedMethod(ORIGIN_PATTERN);
+        config.addExposedHeader(ORIGIN_PATTERN);
         var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration(PATTERN, config);
         return new CorsFilter(source);
     }
 }

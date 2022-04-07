@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.linda.lindamusic.exception.ExceptionType.*;
+
 /**
  * rest身份验证入口点
  *
@@ -23,10 +25,10 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
+        response.setContentType("application/json; charset=utf-8");
         var errorResponse = new ErrorResponse();
-        errorResponse.setCode(ExceptionType.UNAUTHORIZED.getCode());
-        errorResponse.setMessage(ExceptionType.UNAUTHORIZED.getMessage());
+        errorResponse.setCode(UNAUTHORIZED.getCode());
+        errorResponse.setMessage(UNAUTHORIZED.getMessage());
         response.getWriter().println(JSONUtil.parse(errorResponse));
         response.getWriter().flush();
     }

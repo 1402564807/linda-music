@@ -10,7 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
  * 安全配置
@@ -27,10 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final Long EXPIRATION_TIME = 864000000L;
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
-    public static final String CREATE_TOKEN_URL = "/tokens";
+    public static final String CREATE_TOKEN_URL = "/tokens/**";
     public static final String SITE_SETTING_URL = "/settings/site";
     public static final String WECHAT_URL = "/wechat/**";
     public static final String PLAYLISTS_URL = "/playlists/**";
+    public static final String ARTISTS = "/artists/";
     public static final String[] SWAGGER_WHITELIST = {
             "/swagger**/**",
             "/v3/**",
@@ -57,13 +59,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(SITE_SETTING_URL).permitAll()
                 .antMatchers(PLAYLISTS_URL).permitAll()
                 .antMatchers(WECHAT_URL).permitAll()
+                .antMatchers(ARTISTS).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService))
                 .exceptionHandling()
                 .authenticationEntryPoint(entryPoint)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(STATELESS);
     }
 
     @Override

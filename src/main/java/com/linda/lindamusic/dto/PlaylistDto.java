@@ -2,8 +2,8 @@ package com.linda.lindamusic.dto;
 
 import com.linda.lindamusic.enums.PlayListStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,9 +12,10 @@ import java.util.List;
  * @author 林思涵
  * @date 2022/03/29
  */
+
 @Data
-public class PlaylistDto {
-    private String id;
+@EqualsAndHashCode(callSuper = true)
+public class PlaylistDto extends TraceableBaseDto {
 
     private String name;
 
@@ -24,11 +25,11 @@ public class PlaylistDto {
 
     private PlayListStatus status;
 
-    private UserDto creator;
-
     private List<MusicDto> musicList;
 
-    private Date createdTime;
+    private Boolean recommended;
 
-    private Date updatedTime;
+    private Integer recommendFactor;
+
+    private Boolean special;
 }
