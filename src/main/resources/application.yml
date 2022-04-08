@@ -20,11 +20,9 @@ spring:
   flyway:
     enabled: true
 
-#  swagger-ui 配置信息
 springdoc:
-  swagger-ui: true
-    path: /swagger-ui.html
-  packagesToScan: com.linda.lindamusic.controller
+  # 配置需要生成接口文档的扫描包
+  packages-to-scan: com.linda.lindamusic.controller
 
 # 微信小程序配置
 wechat:
