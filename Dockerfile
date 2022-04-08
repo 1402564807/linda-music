@@ -12,7 +12,7 @@ COPY src /app/src
 COPY --chown=gradle:gradle . /app
 
 # 执行代码编译命令
-RUN gradle build -Dspring.profiles.active=test
+RUN gradle build --refresh-dependencies -Dspring.profiles.active=test
 
 # 选择运行时基础镜像
 FROM alpine:3.15
