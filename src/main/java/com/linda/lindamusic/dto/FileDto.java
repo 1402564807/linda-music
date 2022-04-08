@@ -4,8 +4,7 @@ import com.linda.lindamusic.enums.FileStatus;
 import com.linda.lindamusic.enums.FileType;
 import com.linda.lindamusic.enums.Storage;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
 
 /**
  * 文件dto
@@ -13,10 +12,10 @@ import java.util.Date;
  * @author 林思涵
  * @date 2022/03/29
  */
-@Data
-public class FileDto {
-    private String id;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class FileDto extends BaseDto {
     private String name;
 
     private String key;
@@ -32,8 +31,4 @@ public class FileDto {
     private Storage storage;
 
     private FileStatus status;
-
-    private Date createdTime;
-
-    private Date updatedTime;
 }

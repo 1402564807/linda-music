@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,8 +28,4 @@ public class PlaylistVo extends BaseVo {
     private UserVo creator;
 
     private List<MusicVo> musicList;
-
-    private Date createdTime;
-
-    private Date updatedTime;
 }

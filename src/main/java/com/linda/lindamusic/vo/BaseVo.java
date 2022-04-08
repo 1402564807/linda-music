@@ -3,7 +3,7 @@ package com.linda.lindamusic.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 基地vo
@@ -16,8 +16,8 @@ public abstract class BaseVo {
     private String id;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 }

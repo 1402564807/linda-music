@@ -1,9 +1,10 @@
 package com.linda.lindamusic.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.linda.lindamusic.enums.Gender;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,5 +31,6 @@ public class UserDto {
 
     private String lastLoginIp;
 
-    private Date lastLoginTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime lastLoginTime;
 }

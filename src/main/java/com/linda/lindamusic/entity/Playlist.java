@@ -28,7 +28,6 @@ public class Playlist extends TraceableBaseEntity {
     @Enumerated(EnumType.STRING)
     private PlayListStatus status = PlayListStatus.DRAFT;
 
-
     @ManyToMany
     @JoinTable(name = "playlist_music", joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "music_id", referencedColumnName = "id"))
     @ToString.Exclude

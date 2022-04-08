@@ -1,8 +1,9 @@
 package com.linda.lindamusic.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 基地到
@@ -14,7 +15,9 @@ import java.util.Date;
 public abstract class BaseDto {
     protected String id;
 
-    protected Date createdTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    protected LocalDateTime createdTime;
 
-    protected Date updatedTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    protected LocalDateTime updatedTime;
 }

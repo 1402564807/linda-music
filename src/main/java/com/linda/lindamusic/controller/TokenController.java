@@ -1,6 +1,6 @@
 package com.linda.lindamusic.controller;
 
-import com.linda.lindamusic.dto.PaymentDto;
+import com.linda.lindamusic.dto.TokenCreateRequest;
 import com.linda.lindamusic.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +25,12 @@ public class TokenController {
     /**
      * 创造
      *
-     * @param paymentDto 令牌创建请求
+     * @param tokenCreateRequest 令牌创建请求
      * @return {@link String}
      */
     @PostMapping
-    public String create(@RequestBody PaymentDto paymentDto) {
-        return paymentDto.toString();
+    public String create(@RequestBody TokenCreateRequest tokenCreateRequest) {
+        return userService.createToken(tokenCreateRequest);
     }
 
     /**

@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 基本实体
@@ -27,8 +27,8 @@ public abstract class BaseEntity {
     private String id;
 
     @CreationTimestamp
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
     @UpdateTimestamp
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 }

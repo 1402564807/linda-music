@@ -9,9 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +49,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private String lastLoginIp;
 
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
