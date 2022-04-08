@@ -12,7 +12,7 @@ COPY src /app/src
 COPY --chown=gradle:gradle . /app
 
 # 执行代码编译命令
-RUN gradle build --refresh-dependencies -Dspring.profiles.active=test
+RUN gradle build --refresh-dependencies -Dspring.profiles.active=prod
 
 # 选择运行时基础镜像
 FROM alpine:3.15
@@ -31,4 +31,4 @@ COPY --from=build /app/build/libs/linda-music.jar .
 EXPOSE 80
 
 # 执行启动命令
-CMD ["java", "-jar", "/app/linda-music.jar", "--spring.profiles.active=test"]
+CMD ["java", "-jar", "/app/linda-music.jar", "--spring.profiles.active=prod"]
