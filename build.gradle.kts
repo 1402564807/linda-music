@@ -28,6 +28,7 @@ dependencies {
     implementation("com.qcloud:cos_api:5.6.71")
     compileOnly("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.4.2.Final")
     runtimeOnly("mysql:mysql-connector-java")
     runtimeOnly("org.flywaydb:flyway-core")
     runtimeOnly("com.h2database:h2")
